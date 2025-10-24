@@ -48,29 +48,3 @@ if st.button("🔍 Sprawdź RSI teraz"):
                 "RSI_H1": rsi_h1 if rsi_h1 is not None else "-",
                 "Status_H1": stat_h1,
                 "Kolor_H1": color_h1,
-                "RSI_D1": rsi_d1 if rsi_d1 is not None else "-",
-                "Status_D1": stat_d1,
-                "Kolor_D1": color_d1,
-                "Potwierdzenie (H1+D1)": confirm
-            })
-        except Exception as e:
-            rows.append({
-                "Symbol": sym,
-                "RSI_H1": "-",
-                "Status_H1": f"❌ Błąd: {e}",
-                "Kolor_H1": "#fff",
-                "RSI_D1": "-",
-                "Status_D1": "-",
-                "Kolor_D1": "#fff",
-                "Potwierdzenie (H1+D1)": "❌"
-            })
-
-    df = pd.DataFrame(rows)
-
-    # --- Kolorowanie wierszy ---
-    if "Kolor_H1" in df.columns and "Kolor_D1" in df.columns:
-        def highlight(row):
-            # Przygotuj domyślnie puste style dla wszystkich kolumn
-            styles = [""] * len(df.drop(columns=["Kolor_H1", "Kolor_D1"]).columns)
-            # Dodaj kolory w odpowiednie miejsca
-            col_names = list(df.drop(columns=["Kolor_H1", "Kolor_D1"])._
