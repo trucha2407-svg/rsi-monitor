@@ -67,21 +67,10 @@ if st.button("🔍 Sprawdź RSI teraz"):
 
     df = pd.DataFrame(rows)
 
-    # --- Jeśli kolumny z kolorami istnieją, dodaj styl ---
+    # --- Kolorowanie wierszy ---
     if "Kolor_H1" in df.columns and "Kolor_D1" in df.columns:
         def highlight(row):
-            return [
-                "",
-                "",
-                f"background-color: {row.get('Kolor_H1', '#fff')}",
-                "",
-                "",
-                f"background-color: {row.get('Kolor_D1', '#fff')}",
-                "",
-            ]
-        styled = df.drop(columns=["Kolor_H1", "Kolor_D1"]).style.apply(highlight, axis=1)
-        st.dataframe(styled, use_container_width=True)
-    else:
-        st.dataframe(df, use_container_width=True)
-
-st.caption("Działa lokalnie i w chmurze • Dane: Yahoo Finance • Brak automatycznych pętli i maili.")
+            # Przygotuj domyślnie puste style dla wszystkich kolumn
+            styles = [""] * len(df.drop(columns=["Kolor_H1", "Kolor_D1"]).columns)
+            # Dodaj kolory w odpowiednie miejsca
+            col_names = list(df.drop(columns=["Kolor_H1", "Kolor_D1"])._
